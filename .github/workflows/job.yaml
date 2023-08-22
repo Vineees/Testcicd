@@ -3,9 +3,16 @@ name: Learning
 on: [push]
 
 jobs:
-  build:
+    Job1:
 
-    runs-on: ubuntu-latest
+        runs-on: ubuntu-latest
 
-    steps:
-    - uses: actions/checkout@v1
+        steps:
+        - uses: actions/checkout@v1
+    Job2:
+
+        runs-on: ubuntu-latest
+
+        steps:
+        - uses: actions/checkout@v1
+
