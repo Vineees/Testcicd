@@ -9,4 +9,4 @@ jobs:
 
         steps:
         - uses: actions/checkout@v1
-        - uses: ./.github/workflows/workflow-2.yml
+        - uses: Vineees/Testcicd/.github/workflows/workflow-2.yml
