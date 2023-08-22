@@ -12,7 +12,8 @@ jobs:
     job2:
         runs-on: ubuntu-latest
         environment:
-            name: Dev
+            name:
+        needs: Job1
 
         steps:
         - uses: actions/checkout@v1
