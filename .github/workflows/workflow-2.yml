@@ -9,3 +9,8 @@ jobs:
 
         steps:
         - uses: actions/checkout@v1
+    job2:
+        runs-on: ubuntu-latest
+
+        steps:
+        - uses: actions/checkout@v1
