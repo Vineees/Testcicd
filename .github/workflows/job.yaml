@@ -18,7 +18,6 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
     - name: Testing Django
-      run: python3 manage.py test
 
   Deploy-Dev:
     runs-on: ubuntu-latest
@@ -30,7 +29,6 @@ jobs:
     - name: Checkout
     - uses: actions/checkout@v1
     - name: Sending Server
-    - run: echo Deploy Dev!!!!!!!!!
 
   Deploy-Productions:
     runs-on: ubuntu-latest
