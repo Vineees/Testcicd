@@ -14,14 +14,48 @@ jobs:
       with:
         python-version: 3.8
     - name: Install Reqs
-      run: echo Job Test Executado
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+    - name: Testing Django
+      run: python3 manage.py test
 
-  Deploy:
+  Deploy-Dev:
     runs-on: ubuntu-latest
     environment:
-      name: production
+      name: dev
     needs: Build-Test
 
     steps:
+    - name: Checkout
     - uses: actions/checkout@v1
-    - run: echo Job 1 Executado!!!!!!!!!!
+    - name: Sending Server
+    uses: easingthemes/ssh-deploy@main
+      with:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          ARGS: "-rlgoDzvc -i --delete"
+          SOURCE: "dist/"
+          REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
+          REMOTE_USER: ${{ secrets.REMOTE_USER }}
+          TARGET: ${{ secrets.REMOTE_TARGET }}
+          EXCLUDE: "/dist/, /node_modules/"
+
+  Deploy-Productions:
+    runs-on: ubuntu-latest
+    environment:
+      name: production
+    needs: Deploy-Production
+
+    steps:
+    - name: Checkout
+    - uses: actions/checkout@v1
+    - name: Sending Server
+    uses: easingthemes/ssh-deploy@main
+      with:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          ARGS: "-rlgoDzvc -i --delete"
+          SOURCE: "dist/"
+          REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
+          REMOTE_USER: ${{ secrets.REMOTE_USER }}
+          TARGET: ${{ secrets.REMOTE_TARGET }}
+          EXCLUDE: "/dist/, /node_modules/"
