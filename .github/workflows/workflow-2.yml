@@ -1,0 +1,11 @@
+name: Learning2
+
+on: [push]
+
+jobs:
+    Job1:
+
+        runs-on: ubuntu-latest
+
+        steps:
+        - uses: actions/checkout@v1
