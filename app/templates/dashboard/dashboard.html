@@ -1,0 +1,126 @@
+{% extends 'layout.html' %} 
+
+{% load static %} 
+
+{% block title %}Morea | Dashboard{% endblock %} 
+
+{% block stylesCustom %}
+  <link rel="stylesheet" href="{% static 'dashboard/css/dashboard.css' %}" />
+  <link rel="stylesheet" href="{% static 'dashboard/css/mqDashboard.css' %}" />
+{% endblock %}
+
+{% block content %}
+<div class="dashboard">
+  <div class="dashboard__graphicsAndAlert">
+    <div class="graphicsAndAlert__alert">
+      <div class="alert__title">Alertas de Consumo</div>
+      <div class="alert__content">
+        <div class="content__alert">
+          <span class="material-symbols-sharp">emergency_home</span>
+          <p class="alert__text">
+            Possível vazamento detectado no sensor W_04
+          </p>
+        </div>
+        <div class="content__alert abnormalConsumption">
+          <span class="material-symbols-sharp">warning</span>
+          <p class="alert__text">
+            Consumo anormal detectado no sensor W_01
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="graphicsAndAlert__graphics">
+
+      <div class="graphics__graphicDiv">
+        <div class="graphicDiv__titleDiv">
+            <p class="titleDiv__title">
+              Média Geral
+            </p>
+          <div class="titleDiv__selectDiv">
+
+            <select class="titleDiv__selectElement" name="selectOverallAverage" id="selectOverallAverage">
+              <option disabled selected>Selecione</option>
+            </select>
+
+          </div>
+        </div>
+        <div class="graphicsDiv__graphicDiv">
+          
+          {% for iframePath in listPathsHTML.m1h1 %}
+
+            {% if forloop.counter0 == 0 %}
+              <iframe 
+              class="graphicDiv_graphicIframeM1h1 disabledGraphic enableGraphic"
+              id="{{ listNamesFilesHTML.m1h1|index:forloop.counter0 }}"
+              src="{{ iframePath }}"
+              frameborder="0"
+              >
+              </iframe>
+              
+              {% else %}
+              
+              <iframe 
+              class="graphicDiv_graphicIframeM1h1 disabledGraphic"
+              id="{{ listNamesFilesHTML.m1h1|index:forloop.counter0 }}"
+              src="{{ iframePath }}"
+              frameborder="0"
+              >
+              </iframe>
+
+          {% endif %}
+  
+      {% endfor %}
+
+        </div>
+      </div>
+
+      <div class="graphics__graphicDiv">
+        <div class="graphicDiv__titleDiv">
+            <p class="titleDiv__title">
+              Dados Brutos Gerais
+            </p>
+          <div class="titleDiv__selectDiv">
+
+            <select class="titleDiv__selectElement" name="selectRawDatas" id="selectRawDatas">
+              <option disabled selected>Selecione</option>
+            </select>
+
+          </div>
+        </div>
+        <div class="graphicsDiv__graphicDiv">
+
+        {% for iframePath in listPathsHTML.raw %}
+
+          {% if forloop.counter0 == 0 %}
+            <iframe 
+            class="graphicDiv_graphicIframeRaw disabledGraphic enableGraphic"
+            id="{{ listNamesFilesHTML.raw|index:forloop.counter0 }}"
+            src="{{ iframePath }}"
+            frameborder="0"
+            >
+            </iframe>
+            
+          {% else %}
+            
+            <iframe 
+            class="graphicDiv_graphicIframeRaw disabledGraphic"
+            id="{{ listNamesFilesHTML.raw|index:forloop.counter0 }}"
+            src="{{ iframePath }}"
+            frameborder="0"
+            >
+            </iframe>
+
+          {% endif %}
+    
+        {% endfor %}
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+{% endblock %}
+{% block scriptsCustom %}
+  <script src="{% static 'dashboard/js/dashboard.js' %}"></script>
+{% endblock %}
