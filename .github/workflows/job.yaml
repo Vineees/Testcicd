@@ -1,4 +1,4 @@
-name: Learning
+name: Learning2
 
 on: [push]
 
@@ -9,4 +9,11 @@ jobs:
 
         steps:
         - uses: actions/checkout@v1
-        - uses: Vineees/Testcicd/.github/workflows/workflow-2.yml
+    job2:
+        runs-on: ubuntu-latest
+        environment:
+            name:
+        needs: Job1
+
+        steps:
+        - uses: actions/checkout@v1
