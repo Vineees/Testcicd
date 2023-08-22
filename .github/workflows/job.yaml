@@ -18,6 +18,8 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
     - name: Testing Django
+      run: |
+        python3 manage.py test
 
   Deploy-Dev:
     runs-on: ubuntu-latest
@@ -27,17 +29,18 @@ jobs:
 
     steps:
     - name: Checkout
-    - uses: actions/checkout@v1
+      uses: actions/checkout@v1
     - name: Sending Server
+      run: echo Test
 
   Deploy-Productions:
     runs-on: ubuntu-latest
     environment:
       name: production
-    needs: Deploy-Production
+    needs: Deploy-Dev
 
     steps:
     - name: Checkout
-    - uses: actions/checkout@v1
+      uses: actions/checkout@v1
     - name: Sending Server
       run: echo A
