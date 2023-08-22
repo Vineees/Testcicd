@@ -1,9 +1,0 @@
-#databases
-db.*
-
-#pycach
-
-*/**/__pycache__
-
-#settings
-morea/settings.py
