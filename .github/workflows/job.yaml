@@ -21,23 +21,38 @@ jobs:
       run: |
         python3 manage.py test
 
-  Deploy-Dev:
+  Deploy-PreProd:
     runs-on: ubuntu-latest
     environment:
-      name: dev
+      name: pre-production
     needs: Build-Test
 
     steps:
     - name: Checkout
       uses: actions/checkout@v1
     - name: Sending Server
-      run: echo Test
+      uses: easingthemes/ssh-deploy@main
+      with:
+        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+        ARGS: "-rlgoDzvc -i"
+        SOURCE: "dist/"
+        REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
+        REMOTE_USER: ${{ secrets.REMOTE_USER }}
+        TARGET: ${{ secrets.REMOTE_TARGET }}
+        EXCLUDE: "/dist/, /node_modules/"
+        SCRIPT_BEFORE: |
+          whoami
+          ls -al
+        SCRIPT_AFTER: |
+          whoami
+          ls -al
+          echo $RSYNC_STDOUT
 
   Deploy-Productions:
     runs-on: ubuntu-latest
     environment:
       name: production
-    needs: Deploy-Dev
+    needs: Deploy-PreProd
 
     steps:
     - name: Checkout
